@@ -22,11 +22,11 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
+    - name: Build the application
       run: msbuild RemoteDaoGuanHelper.slnx /t:Build /p:Configuration=Release
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
       with:
-        path: .\RemoteDaoGuanHelper\RemoteDaoGuanHelper\bin\Release
+        path: .\RemoteDaoGuanHelper\bin\Release\
       
