@@ -17,16 +17,23 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v2
 
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Build the application
-      run: msbuild RemoteDaoGuanHelper.slnx /t:Build /p:Configuration=Release
+    - name: Publish
+      run: |
+        dotnet publish .\RemoteDaoGuanHelper\RemoteDaoGuanHelper.csproj -c Release -r win-x64
+        dotnet publish .\RemoteDaoGuanHelper\RemoteDaoGuanHelper.csproj -c Release -r win-x86
+        dotnet publish .\RemoteDaoGuanHelper\RemoteDaoGuanHelper.csproj -c Release -r win-arm64
+        dotnet publish .\RemoteDaoGuanHelper\RemoteDaoGuanHelper.csproj -c Release -r win-arm
 
+    - name: Rename Artifacts
+      run: |
+        Rename-Item -Path .\RemoteDaoGuanHelper\bin\Release\net48\win-x64\publish\RemoteDaoGuanHelper.exe -NewName RemoteDaoGuanHelper_x64.exe
+        Rename-Item -Path .\RemoteDaoGuanHelper\bin\Release\net48\win-x86\publish\RemoteDaoGuanHelper.exe -NewName RemoteDaoGuanHelper_x86.exe
+        Rename-Item -Path .\RemoteDaoGuanHelper\bin\Release\net48\win-arm64\publish\RemoteDaoGuanHelper.exe -NewName RemoteDaoGuanHelper_arm64.exe
+        Rename-Item -Path .\RemoteDaoGuanHelper\bin\Release\net48\win-arm\publish\RemoteDaoGuanHelper.exe -NewName RemoteDaoGuanHelper_arm.exe
+   
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
       with:
-        path: .\RemoteDaoGuanHelper\bin\Release\
+        path: .\RemoteDaoGuanHelper\bin\Release\**\publish\*.exe
       
