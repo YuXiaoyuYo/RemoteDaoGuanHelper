@@ -11,7 +11,7 @@ public abstract class Program
     private static void Main()
     {
         Application.EnableVisualStyles();
-        Application.SetCompatibleTextRenderingDefault(true);
+        Application.SetCompatibleTextRenderingDefault(false);
         using var configForm = new ConfigForm();
 
         var result = configForm.ShowDialog();
