@@ -20,20 +20,11 @@ jobs:
 
     - name: Publish
       run: |
-        dotnet publish .\RemoteDaoGuanHelper\RemoteDaoGuanHelper.csproj -c Release -r win-x64
-        dotnet publish .\RemoteDaoGuanHelper\RemoteDaoGuanHelper.csproj -c Release -r win-x86
-        dotnet publish .\RemoteDaoGuanHelper\RemoteDaoGuanHelper.csproj -c Release -r win-arm64
-        dotnet publish .\RemoteDaoGuanHelper\RemoteDaoGuanHelper.csproj -c Release -r win-arm
-
-    - name: Rename Artifacts
-      run: |
-        Rename-Item -Path .\RemoteDaoGuanHelper\bin\Release\net48\win-x64\publish\RemoteDaoGuanHelper.exe -NewName RemoteDaoGuanHelper_x64.exe
-        Rename-Item -Path .\RemoteDaoGuanHelper\bin\Release\net48\win-x86\publish\RemoteDaoGuanHelper.exe -NewName RemoteDaoGuanHelper_x86.exe
-        Rename-Item -Path .\RemoteDaoGuanHelper\bin\Release\net48\win-arm64\publish\RemoteDaoGuanHelper.exe -NewName RemoteDaoGuanHelper_arm64.exe
-        Rename-Item -Path .\RemoteDaoGuanHelper\bin\Release\net48\win-arm\publish\RemoteDaoGuanHelper.exe -NewName RemoteDaoGuanHelper_arm.exe
+        dotnet publish .\RemoteDaoGuanHelper\RemoteDaoGuanHelper.csproj -c Release
    
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
       with:
-        path: .\RemoteDaoGuanHelper\bin\Release\**\publish\*.exe
+        name: Publish
+        path: !.\RemoteDaoGuanHelper\bin\Release\**\publish\*.exe
       

@@ -1,9 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-using System.ComponentModel;
-using System.Windows.Forms.VisualStyles;
 
 namespace RemoteDaoGuanHelper;
-    
+
 public class SecureOverlay : Form
 {
     /// <summary>
@@ -17,7 +15,7 @@ public class SecureOverlay : Form
         using var configForm = new ConfigForm();
 
         var result = configForm.ShowDialog();
-        
+
         if (result == DialogResult.OK)
         {
             // 使用配置的文本创建主窗口
@@ -28,13 +26,13 @@ public class SecureOverlay : Form
             MessageBox.Show(@"已取消导管");
         }
     }
-    
+
     private SecureOverlay(string labelText)
     {
         InitializeForm(labelText);
         Load += (_, _) => ApplySecuritySettings();
     }
-        
+
     private void InitializeForm(string labelText)
     {
         // 基础窗体设置
@@ -54,7 +52,7 @@ public class SecureOverlay : Form
         };
         Controls.Add(label);
     }
-        
+
     private void ApplySecuritySettings()
     {
         SetWindowDisplayAffinity(Handle, WdaExcludeFromCapture);
@@ -63,12 +61,13 @@ public class SecureOverlay : Form
         var currentExStyle = GetWindowLong(Handle, GwlExStyle);
         SetWindowLong(Handle, GwlExStyle, currentExStyle | WsExLayered | WsExTransparent | WsExTopmost);
     }
-        
+
     [DllImport("user32.dll")]
     private static extern bool SetWindowDisplayAffinity(IntPtr hWnd, uint dwAffinity);
-        
+
     // 常量定义
     private const uint WdaExcludeFromCapture = 0x00000011;
+
     private const int WsExTransparent = 0x00000020;
     private const int WsExLayered = 0x00080000;
     private const int WsExTopmost = 0x00000008;
@@ -86,7 +85,7 @@ public class SecureOverlay : Form
 public class ConfigForm : Form
 {
     public string LabelText { get; private set; } = string.Empty; // 默认文本
-    
+
     private TextBox _textBox;
     private Button _confirmButton;
     private Button _cancelButton;
