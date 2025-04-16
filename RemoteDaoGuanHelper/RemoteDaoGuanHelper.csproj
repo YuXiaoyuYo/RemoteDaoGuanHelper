@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Deterministic>false</Deterministic>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net48</TargetFramework>
         <Nullable>disable</Nullable>

@@ -1,4 +1,7 @@
 ﻿using RemoteDaoGuanHelper.Forms;
+using System.Reflection;
+
+[assembly: AssemblyVersion("1.1.*")]
 
 namespace RemoteDaoGuanHelper;
 
