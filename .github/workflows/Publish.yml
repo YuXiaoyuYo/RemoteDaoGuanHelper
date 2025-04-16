@@ -26,5 +26,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Publish
-        path: !.\RemoteDaoGuanHelper\bin\Release\**\publish\*.exe
+        path: .\RemoteDaoGuanHelper\bin\Release\**\publish\*.exe
       
